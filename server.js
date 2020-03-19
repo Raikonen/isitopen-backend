@@ -8,13 +8,10 @@ const bodyParser = require('body-parser') // turns response into usable format
 const cors = require('cors')  // allows/disallows cross-site communication
 const morgan = require('morgan') // logs requests
 
-const db = ({
-  client: 'pg',
-  connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-  }
-});
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+  });
 
 // db Connection w/ localhost
 // const { Pool } = require('pg')
