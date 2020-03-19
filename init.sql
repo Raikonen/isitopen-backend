@@ -25,25 +25,26 @@ CREATE TABLE OpeningHours
 CREATE TABLE Users
 (
     uid             INTEGER GENERATED ALWAYS AS IDENTITY,
-    email           VARCHAR(100),
-    PRIMARY KEY (uid)
+    email           VARCHAR(100) NOT NULL,
+    password        TEXT NOT NULL,
+    PRIMARY KEY (email)
 );
 
 CREATE TABLE Collections
 (
     cid             INTEGER GENERATED ALWAYS AS IDENTITY,
-    owner           INTEGER NOT NULL,
+    owner           VARCHAR(100) NOT NULL,
     cname           VARCHAR(100),
     /* Extendible for future attributes */
-    FOREIGN KEY (owner) REFERENCES Users(uid),
+    FOREIGN KEY (owner) REFERENCES Users(email),
     PRIMARY KEY (cid)
 );
 
 CREATE TABLE Collaborators
 (
     cid             INTEGER,
-    uid             INTEGER,
-    FOREIGN KEY (uid) REFERENCES Users(uid),
+    email           VARCHAR(100) NOT NULL,
+    FOREIGN KEY (email) REFERENCES Users(email),
     FOREIGN KEY (cid) REFERENCES Collections(cid)
 );
 
@@ -51,19 +52,12 @@ CREATE TABLE StoresInCollection
 (
     cid             INTEGER NOT NULL,
     sid             INTEGER NOT NULL,
-    addingUid       INTEGER NOT NULL,
+    addingEmail     INTEGER NOT NULL,
     /* Extendible for future attributes */
     FOREIGN KEY (cid) REFERENCES Collections(cid),
     FOREIGN KEY (sid) REFERENCES Stores(sid),
     PRIMARY KEY (cid, sid)
 );
-
-DELETE FROM Stores;
-DELETE FROM OpeningHours;
-DELETE FROM Users;
-DELETE FROM Collections;
-DELETE FROM Collaborators;
-DELETE FROM StoresInCollection;
 
 \copy Stores FROM './assets/stores.csv' DELIMITER ',' CSV HEADER;
 \copy OpeningHours FROM './assets/openingHours.csv' DELIMITER ',' CSV HEADER;

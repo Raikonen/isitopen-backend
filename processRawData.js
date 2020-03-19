@@ -49,7 +49,7 @@ function parseData() {
 
         // Append to stores to stores.csv
         parsedStores.push({ sid: i + 1, ...dataCsv[i] })
-        
+
         // Append to opening hours openingHours.csv
         const splitOpeningHours = dataCsv[i].openingHours.split(",")
         let restArr = []
@@ -91,7 +91,7 @@ function parseData() {
             const timeStr = nfd.substring(firstNum, nfd.length)
             let openingTime;
             let closingTime;
-            
+
             // Parse opening and closing time
             const splitTimeStr = timeStr.split('-')
             openingTime = convertTo24Hrs(splitTimeStr[0])
@@ -167,7 +167,7 @@ function convertTo24Hrs(inputTimeStr) {
             let hours = parseInt(splitT[0].trim())
             return hours === 12
                 ? '00:00'
-                : hours + ":00" 
+                : hours + ":00"
         } else {
             // 3:30am type
             let hours = parseInt(splitT[0].trim())
@@ -184,7 +184,7 @@ function convertTo24Hrs(inputTimeStr) {
             let hours = parseInt(splitT[0].trim())
             return hours === 12
                 ? '12:00'
-                : (hours + 12) + ':00' 
+                : (hours + 12) + ':00'
         } else {
             // 3:30pm type
             let hours = parseInt(splitT[0].trim())
