@@ -31,7 +31,7 @@ const main = require('./controllers/main')
 const app = express()
 
 // App Middleware
-const whitelist = ['https://isitopen-api.herokuapp.com', 'http://localhost:3001']
+const whitelist = ['https://isitopen-frontend.herokuapp.com', 'http://localhost:3001']
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1 || !origin) {
